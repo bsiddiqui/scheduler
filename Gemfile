@@ -12,6 +12,9 @@ gem 'pg'
 group :development do
   gem 'html2haml'
   gem 'rails_layout'
+  gem 'pry'
+  gem 'pry-remote'
+  gem 'pry-nav'
 end
 group :development, :test do
   gem 'factory_girl_rails'
