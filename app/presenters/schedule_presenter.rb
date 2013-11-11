@@ -1,5 +1,4 @@
 class SchedulePresenter
-  include ActionView::Helpers
   attr_reader :schedule
 
   def initialize(schedule)

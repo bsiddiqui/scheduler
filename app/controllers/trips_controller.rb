@@ -27,25 +27,16 @@ class TripsController < ApplicationController
 
   # responds with trips that fall within a specific to/from date
   def query_by_date
+    # find the wdays of the trip
     dates = dates_to_wdays(
       Date.parse(params[:from]),
       Date.parse(params[:to])
     )
 
+    # find schedules that fit the wdays of the trip
     schedules = Schedule.where.overlap(wdays: dates)
-    json = {}
 
-    schedules.each do |s|
-      name = Trip.where(id: s.trip_id).first.name
-      schedule = SchedulePresenter.new(s).as_json
-      if json[name]
-        json[name] << schedule
-      else
-        json[name] = [schedule]
-      end
-    end
-
-    respond_with json
+    respond_with TripsBySchedulePresenter.new(schedules).as_json
   end
 
   private
