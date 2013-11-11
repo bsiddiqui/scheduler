@@ -6,13 +6,24 @@ Task: create a server that supports basic trip & schedule creation and schedulin
 
 Setup
 
+Tests
+rake test
 
 API
+TRIPS
 create trip
-create schedule
-see a list of trips (without schedule)
-see a list of trips scheduled between two dates
+POST /trips.json with 'name' and 'vendor' params
+curl --include -X POST -d 'name=Scuba Mexico&vendor=Scuba Club' http://localhost:3000/trips.json
 
+see a list of all trips (without schedule)
+GET /trips.json
+curl --include -X GET http://localhost:3000/trips.json
+
+create schedule
+POST /trips/:trip_id/schedules.json with _______ params
+
+see a list of all schedules for a trip
+GET /trips/:trip_id/schedules.json
 
 Example:
 

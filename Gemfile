@@ -9,6 +9,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'haml-rails'
 gem 'pg'
+gem 'postgres_ext'
 group :development do
   gem 'html2haml'
   gem 'rails_layout'
