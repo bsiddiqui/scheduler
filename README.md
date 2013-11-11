@@ -20,10 +20,17 @@ GET /trips.json
 curl --include -X GET http://localhost:3000/trips.json
 
 create schedule
-POST /trips/:trip_id/schedules.json with _______ params
+POST /trips/:trip_id/schedules.json with price, max_size, wdays, and time params
+curl --include -X POST -d 'price=32.50&max_size=1&wdays=[1,2]&time=12:50' http://localhost:3000/trips/1/schedules.json
 
 see a list of all schedules for a trip
 GET /trips/:trip_id/schedules.json
+curl --include -X GET http://localhost:3000/trips/1/schedules.json
+
+see a list of trips and schedules by date
+GET /trips.json with 'to' and 'from' params
+curl --include -X GET -d 'from=13/1/9&to=13/1/19' http://localhost:3000/query_by_date.json
+
 
 Example:
 

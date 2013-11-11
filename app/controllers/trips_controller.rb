@@ -24,4 +24,27 @@ class TripsController < ApplicationController
       render json: @trip.errors, status: 404
     end
   end
+
+  # responds with trips that fall within a specific to/from date
+  def query_by_date
+    dates = dates_to_wdays(
+      Date.parse(params[:from]),
+      Date.parse(params[:to])
+    )
+
+    @schedules = Schedule.where.overlap(wdays: dates)
+    #TODO present in better format
+    respond_with @schedules
+  end
+
+  private
+
+  # returns an array of unique wdays between two dates
+  def dates_to_wdays (start_date, end_date)
+    dates = []
+    start_date.upto(end_date).to_a.each do |t|
+      dates << t.wday
+    end
+    dates.uniq
+  end
 end

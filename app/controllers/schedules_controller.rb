@@ -15,8 +15,8 @@ class SchedulesController < ApplicationController
       trip_id: params[:trip_id],
       price: params[:price],
       max_size: params[:max_size],
-      wday: params[:wday],
-      time: params[:time]
+      time: params[:time],
+      wdays: JSON.parse(params[:wdays])
     )
 
     if @schedule.save
@@ -25,14 +25,6 @@ class SchedulesController < ApplicationController
     else
       # invalid schedule
       render json: @schedule.errors, status: 404
-    end
-  end
-
-  # responds with trips that fall within a specific to/from date
-  # TODO should this be a method in trip?
-  def wday_to_datetime
-    case date
-
     end
   end
 end
