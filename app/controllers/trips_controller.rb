@@ -5,23 +5,23 @@ class TripsController < ApplicationController
 
   # responds with all trips
   def index
-    @trips = Trip.all
-    respond_with @trips
+    trips = Trip.all
+    respond_with trips
   end
 
   # creates a new trip
   def create
-    @trip = Trip.new(
+    trip = Trip.new(
       name: params[:name],
       vendor: params[:vendor]
     )
 
-    if @trip.save
+    if trip.save
       # valid trip
-      render json: @trip, status: 201
+      render json: trip, status: 201
     else
       # invalid trip
-      render json: @trip.errors, status: 404
+      render json: trip.errors, status: 404
     end
   end
 
@@ -32,9 +32,20 @@ class TripsController < ApplicationController
       Date.parse(params[:to])
     )
 
-    @schedules = Schedule.where.overlap(wdays: dates)
-    #TODO present in better format
-    respond_with @schedules
+    schedules = Schedule.where.overlap(wdays: dates)
+    json = {}
+
+    schedules.each do |s|
+      name = Trip.where(id: s.trip_id).first.name
+      schedule = SchedulePresenter.new(s).as_json
+      if json[name]
+        json[name] << schedule
+      else
+        json[name] = [schedule]
+      end
+    end
+
+    respond_with json
   end
 
   private

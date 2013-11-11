@@ -71,5 +71,4 @@ curl --include -X GET -d 'from=2013/01/09&to=2013/01/19' http://localhost:3000/q
 
 
 ## TODO
-* add service to format query_by_date format
 * write tests

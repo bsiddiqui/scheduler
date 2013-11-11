@@ -5,13 +5,13 @@ class SchedulesController < ApplicationController
 
   # responds with all schedules for a given trip
   def index
-    @schedules = Schedule.where(trip_id: params[:trip_id])
-    respond_with @schedules
+    schedules = Schedule.where(trip_id: params[:trip_id])
+    respond_with schedules
   end
 
   # creates a new schedules for a given trip
   def create
-    @schedule = Schedule.new(
+    schedule = Schedule.new(
       trip_id: params[:trip_id],
       price: params[:price],
       max_size: params[:max_size],
@@ -19,12 +19,12 @@ class SchedulesController < ApplicationController
       wdays: JSON.parse(params[:wdays])
     )
 
-    if @schedule.save
+    if schedule.save
       # valid schedule
-      render json: @schedule, status: 201
+      render json: SchedulePresenter.new(schedule).as_json, status: 201
     else
       # invalid schedule
-      render json: @schedule.errors, status: 404
+      render json: schedule.errors, status: 404
     end
   end
 end
