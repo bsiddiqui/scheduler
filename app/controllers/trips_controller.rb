@@ -41,10 +41,9 @@ class TripsController < ApplicationController
 
   # returns an array of unique wdays between two dates
   def dates_to_wdays (start_date, end_date)
-    dates = []
-    start_date.upto(end_date).to_a.each do |t|
+    start_date.upto(end_date).to_a.inject([]) do |dates, t|
+      return dates if dates.include? t.wday
       dates << t.wday
     end
-    dates.uniq
   end
 end
