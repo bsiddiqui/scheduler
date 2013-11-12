@@ -1,4 +1,7 @@
 class SchedulesController < ApplicationController
+  # I typically think a skip_before_filter would be a terrible idea but
+  # the requirements didn't say anything about securing the API
+  #
   # don't require auth token for curl commands
   skip_before_filter :verify_authenticity_token, :only => [:index, :create]
   respond_to :json
@@ -11,13 +14,7 @@ class SchedulesController < ApplicationController
 
   # creates a new schedules for a given trip
   def create
-    schedule = Schedule.new(
-      trip_id: params[:trip_id],
-      price: params[:price],
-      max_size: params[:max_size],
-      time: params[:time],
-      wdays: JSON.parse(params[:wdays])
-    )
+    schedule = Schedule.new(schedule_params)
 
     if schedule.save
       # valid schedule
@@ -26,5 +23,11 @@ class SchedulesController < ApplicationController
       # invalid schedule
       render json: schedule.errors, status: 404
     end
+  end
+
+  private
+
+  def schedule_params
+    params.require(:schedule).permit(:trip_id, :price, :max_size, :time, wdays: [])
   end
 end

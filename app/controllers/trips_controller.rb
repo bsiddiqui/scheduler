@@ -1,4 +1,7 @@
 class TripsController < ApplicationController
+  # I typically think a skip_before_filter would be a terrible idea but
+  # the requirements didn't say anything about securing the API
+  #
   # don't require auth token for curl commands
   skip_before_filter :verify_authenticity_token, :only => [:index, :create]
   respond_to :json
@@ -11,18 +14,9 @@ class TripsController < ApplicationController
 
   # creates a new trip
   def create
-    trip = Trip.new(
-      name: params[:name],
-      vendor: params[:vendor]
-    )
+    trip = Trip.create(trip_params)
 
-    if trip.save
-      # valid trip
-      render json: trip, status: 201
-    else
-      # invalid trip
-      render json: trip.errors, status: 404
-    end
+    respond_with trip
   end
 
   # responds with trips that fall within a specific to/from date
@@ -40,6 +34,10 @@ class TripsController < ApplicationController
   end
 
   private
+
+  def trip_params
+    params.require(:trip).permit(:name, :vendor)
+  end
 
   # returns an array of unique wdays between two dates
   def dates_to_wdays (start_date, end_date)

@@ -29,7 +29,7 @@ POST /trips.json with 'name' and 'vendor' params
 * vendor = vendor that is hosting the trip i.e. 'Scuba Club'
 
 ```
-curl --include -X POST -d 'name=Scuba Mexico&vendor=Scuba Club' http://localhost:3000/trips.json
+curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"trip":{"name":"Scuba Mexico","vendor":"Scuba Club"}}' http://localhost:3000/trips
 ```
 
 **See a list of all trips (without schedule)**
@@ -37,7 +37,7 @@ curl --include -X POST -d 'name=Scuba Mexico&vendor=Scuba Club' http://localhost
 GET /trips.json
 
 ```
-curl --include -X GET http://localhost:3000/trips.json
+curl -H "Accept: application/json" -H "Content-type: application/json" -X GET http://localhost:3000/trips
 ```
 
 **Create schedule**
@@ -49,7 +49,7 @@ POST /trips/:trip_id/schedules.json with price, max_size, wdays, and time params
 * time = the time when the event will happen i.e. '12:30 pm'
 
 ```
-curl --include -X POST -d 'price=32.50&max_size=1&wdays=[1,2]&time=12:50' http://localhost:3000/trips/1/schedules.json
+curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"schedule":{"trip_id":1,"price":32.50,"max_size":1,"wdays":[1,2],"time":"12:50 pm"}}' http://localhost:3000/trips/1/schedules
 ```
 
 **See a list of all schedules for a trip**
@@ -57,7 +57,7 @@ curl --include -X POST -d 'price=32.50&max_size=1&wdays=[1,2]&time=12:50' http:/
 GET /trips/:trip_id/schedules.json
 
 ```
-curl --include -X GET http://localhost:3000/trips/1/schedules.json
+curl -H "Accept: application/json" -H "Content-type: application/json" -X GET http://localhost:3000/trips/1/schedules
 ```
 
 **See a list of trips and schedules by date**
@@ -66,9 +66,5 @@ GET /query_by_date.json with 'to' and 'from' params
 * 'to' and 'from' = dates in the format 'YYYY/MM/DD'
 
 ```
-curl --include -X GET -d 'from=2013/01/09&to=2013/01/19' http://localhost:3000/query_by_date.json
+curl -H "Accept: application/json" -H "Content-type: application/json" -X GET -d '{"from":"2013/01/09","to":"2013/01/19"}' http://localhost:3000/query_by_date
 ```
-
-
-## TODO
-* write tests

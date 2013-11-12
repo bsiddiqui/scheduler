@@ -1,14 +1,12 @@
 require 'test_helper'
 
 class SchedulesControllerTest < ActionController::TestCase
-  # test "should get index" do
-  #   get :index
-  #   assert_response :success
-  # end
+  before :each do
+    request.env["HTTP_ACCEPT"] = 'application/json'
+  end
 
-  # test "should get create" do
-  #   get :create
-  #   assert_response :success
-  # end
-
+  test "should get index" do
+    get :index, trip_id: 1
+    assert_response :success
+  end
 end
