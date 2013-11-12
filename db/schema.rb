@@ -11,19 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131111054257) do
+ActiveRecord::Schema.define(version: 20131112020707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "schedules", force: true do |t|
-    t.integer  "trip_id",                            null: false
-    t.decimal  "price",      precision: 8, scale: 2, null: false
-    t.integer  "max_size"
-    t.time     "time",                               null: false
+    t.integer  "trip_id",                                         null: false
+    t.decimal  "price",      precision: 8, scale: 2,              null: false
+    t.integer  "max_size",                                        null: false
+    t.time     "time",                                            null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "wdays",                                           array: true
+    t.integer  "wdays",                              default: [],              array: true
   end
 
   create_table "trips", force: true do |t|

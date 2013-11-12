@@ -1,4 +1,4 @@
-# Scheduler app for Vayable
+# Scheduler API for Vayable
 
 **Task**
 * create a server that supports basic trip & schedule creation and scheduling lookup via JSON

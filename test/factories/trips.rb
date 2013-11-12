@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :trip do
-    name "MyString"
-    vendor "MyString"
+    name "Scuba in Mexico"
+    vendor "Scuba Time"
   end
 end
